@@ -112,7 +112,7 @@ resource "kubernetes_horizontal_pod_autoscaler" "example-app-hpa" {
 
     scale_target_ref {
       kind = "Deployment"
-      name = "example-app"
+          name = "example-app"
     }
   }
 }
