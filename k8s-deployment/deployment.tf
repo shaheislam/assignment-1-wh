@@ -43,13 +43,15 @@ resource "kubernetes_deployment" "example" {
       spec {
         automount_service_account_token = true
         security_context {
+          #Ensures container does not have root permissions
           run_as_group    = 100
           run_as_user     = 100
           run_as_non_root = true
         }
         service_account_name = kubernetes_service_account.example_app_sa.metadata[0].name
         container {
-          image = "nginxinc/nginx-unprivileged:1.20" ## Unpriveleged container is a requirement to run the container as non-root
+          #Unpriveleged container is a requirement to run the container as non-root
+          image = "nginxinc/nginx-unprivileged:1.20"
           name  = "nginx-app"
           port {
             container_port = "27017"
@@ -108,23 +110,6 @@ resource "kubernetes_service_account" "example_app_sa" {
   }
 }
 
-#With access to AWS services can utilise AWS Secret ARN to store API_KEY and reference as a datalookup then create K8s secret at runtime, much more secure
-#Vault secret management is also an alternative which I have experience with however would not wish to share propietary code.
-
-# resource "kubernetes_secret" "example-app-secret" {
-#   metadata {
-#     name      = "example-app-secret"
-#     namespace = var.example_namespace
-#     labels = {
-#       "sensitive" = "true"
-#       "app"       = "nginx-app"
-#     }
-#   }
-#   data = {
-#     "file.txt" = file("${path.cwd}/json/api.json")
-#   }
-# }
-
 resource "kubernetes_secret" "example-app-secret" {
   metadata {
     name      = "example-app-secret"
@@ -169,5 +154,3 @@ resource "kubernetes_horizontal_pod_autoscaler" "example-app-hpa" {
     }
   }
 }
-
-# 2022-05-24T08:42:38.067+0100 [DEBUG] plugin.terraform-provider-kubernetes_v1.13.4_x4:     "message": "pods \"example-app-b5575598c-\" is forbidden: error looking up service account example-app/example-app-sa: serviceaccount \"example-app-sa\" not found"
