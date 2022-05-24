@@ -50,7 +50,7 @@ resource "kubernetes_deployment" "example" {
         }
         service_account_name = kubernetes_service_account.example_app_sa.metadata[0].name
         container {
-          image = "https://hub.docker.com/r/bitnami/nginx:1.21.6"
+          image = "nginxinc/nginx-unprivileged:1.20" ## Unpriveleged container is a requirement to run the container as non-root
           name  = "nginx-app"
           resources {
             limits {
@@ -89,6 +89,7 @@ resource "kubernetes_service" "example_svc" {
 resource "kubernetes_service_account" "example_app_sa" {
   metadata {
     name = "example-app-sa"
+    namespace = var.example_namespace
   }
   secret {
     name = "${kubernetes_secret.example-app-secret.metadata.0.name}"
@@ -130,3 +131,5 @@ resource "kubernetes_horizontal_pod_autoscaler" "example-app-hpa" {
     }
   }
 }
+
+# 2022-05-24T08:42:38.067+0100 [DEBUG] plugin.terraform-provider-kubernetes_v1.13.4_x4:     "message": "pods \"example-app-b5575598c-\" is forbidden: error looking up service account example-app/example-app-sa: serviceaccount \"example-app-sa\" not found"
