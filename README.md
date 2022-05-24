@@ -13,7 +13,7 @@ This deployment example will deploy an example app which has a service, service 
 ## How to use it?
 
 1. Pull the repository to your local
-    `git clone git@github.com:shaheislam/william-hill-1.git`
+    `git clone git@github.com:shaheislam/assignment-1-wh.git`
 2. Start Docker
     `open -a Docker` - Mac
     `sudo service docker start` - Linux
