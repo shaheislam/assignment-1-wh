@@ -41,7 +41,6 @@ resource "kubernetes_deployment" "example" {
         }
       }
       spec {
-
         automount_service_account_token = true
         security_context {
           run_as_group    = 100
