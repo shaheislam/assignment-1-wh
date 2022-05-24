@@ -62,3 +62,4 @@ https://docs.gitlab.com/ee/ci/examples/
 2. AWS Secretsmanager / Vault Injection for securely storing secrets and injecting into K8s at runtime without exposing as is current state. (Have experience with both of these methods)
 3. Additional Github actions
 4. Run backend provider for different regions through local rendering of values within Terraform
+5. Implement policy as code via Conftest/Rego within pipeline
