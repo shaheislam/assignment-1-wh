@@ -1,21 +1,36 @@
 # Assignment 1 deployment example
 ## Description
 
-This deployment example will deploy an example app which has a service, service account, HPA and PDB associated with it all generated via Terraform.
+This deployment example will deploy an example app which has a service, service account, HPA and PDB associated with it all generated via Terraform. The API_KEY is set as an environment variable to validate this.
+
+### Prerequisite:
+- Minikube
+- Docker
+- Terraform
+
 
 ## How to use it?
-Prerequisite: please make sure you are using Minikube.
-## Add local variable to map to Minikube port for deployment rather than hard coding it
-
-
-1. Update backend.tf with your account's S3 bucket name, role name etc.
-2. Update tfvars file with your EKS cluster details.
-4. run below commands to deploy the example app:
+1. Pull the repository to your local
+    `git clone git@github.com:shaheislam/william-hill-1.git`
+2. Start Docker
+    `open -a Docker` - Mac
+    `sudo service docker start` - Linux
+3. Start Minikube
+    `minikube start`
+4. Get port Minikube is running on
+    `kubectl cluster-info`
+5. Get port Minikube is running on
+    `kubectl cluster-info`
+6. Update .tfvars file with 'minikube_port' value
+7. run below commands to deploy the example app & infrastructure:
     ```
     terraform init
-    terraform plan -var-file="test-cluster.tfvars"
-    terraform apply -var-file="test-cluster.tfvars"
+    terraform plan
+    terraform apply
     ```
+
+
+
 5. Log into your cluster, you should be able to see two continers running in example-app pod:
     ```
     //Get pods in secrets-example namespace
@@ -45,13 +60,9 @@ MENTION
 Prereqs, Docker
 downloading https://hub.docker.com/r/nginxinc/nginx-unprivileged
 
-IF logic for wether you want local terraform or S3
-Makefile with make targets running via docker compose
-stage in pipeline which utilises kube-bench
-helm chart installation for metric server? Test
-Terraform module
 
-https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/
-
-kubectl port-forward example-app-56b6b9d858-5lg8w 31698:27017
-https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/
+## Future Improvements
+1. Store terraform backend statefile for S3
+2. AWS Secretsmanager / Vault Injection for securely storing secrets and injecting into K8s at runtime without exposing as is current state. (Have experience with both of these methods)
+3. Additional Github actions
+4. Run backend provider for different regions through local rendering of values within Terraform
