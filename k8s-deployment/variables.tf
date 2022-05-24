@@ -8,3 +8,8 @@ variable "minikube_port" {
   description = "Port to access Minikube cluster"
   type        = string
 }
+
+variable "container_registry" {
+  description = "Registry for container"
+  type        = string
+}

@@ -8,7 +8,7 @@ This deployment example will deploy an example app which has a service, service 
 - Minikube
 - Docker
 - Terraform
-
+- Helm
 
 ## How to use it?
 
@@ -56,6 +56,9 @@ This deployment example will deploy an example app which has a service, service 
 https://docs.gitlab.com/ee/ci/examples/
 
 
+## TODO
+
+1. Correct `“minikube” certificate is not standards compliant` - Helm chart deployment blocker
 ## Future Improvements
 
 1. Store terraform backend statefile for S3
