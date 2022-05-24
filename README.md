@@ -59,6 +59,7 @@ https://docs.gitlab.com/ee/ci/examples/
 ## TODO
 
 1. Correct `“minikube” certificate is not standards compliant` - Helm chart deployment blocker
+2. Add Buildkite pipeline for automated deployment
 ## Future Improvements
 
 1. Store terraform backend statefile for S3
