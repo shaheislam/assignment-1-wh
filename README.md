@@ -23,16 +23,14 @@ This deployment example will deploy an example app which has a service, service 
     `minikube start`
 5. Get port Minikube is running on
     `kubectl cluster-info`
-6. Get port Minikube is running on
-    `kubectl cluster-info`
-7. Update .tfvars file with 'minikube_port' value
-8. run below commands to deploy the example app & infrastructure:
+6. Update .tfvars file with 'minikube_port' value
+7. run below commands to deploy the example app & infrastructure:
     ```
     terraform init
     terraform plan -var-file="cluster.tfvars"
     terraform apply -var-file="cluster.tfvars"
     ```
-9. Log into your cluster, you should be able to see one container running in example-app pod:
+8. Log into your cluster, you should be able to see one container running in example-app pod:
     ```
     //Get pods in example-app namespace
     kubectl get pods -n example-app
