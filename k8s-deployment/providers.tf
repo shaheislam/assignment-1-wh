@@ -12,5 +12,9 @@ terraform {
 }
 
 provider "kubernetes" {
-  host = "https://127.0.0.1:52692"
+  host = "https://127.0.0.1:${var.minikube_port}"
 }
+
+# provider "kubernetes" {
+#   host = "https://127.0.0.1:52692"
+# }

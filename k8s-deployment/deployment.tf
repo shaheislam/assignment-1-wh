@@ -1,3 +1,17 @@
+resource "kubernetes_namespace" "example_namespace" {
+  metadata {
+    annotations = {
+      name = "example-annotation"
+    }
+
+    labels = {
+      mylabel = "label-value"
+    }
+
+    name = var.example_namespace
+  }
+}
+
 resource "kubernetes_deployment" "example" {
   metadata {
     name      = "example-app"
@@ -54,7 +68,7 @@ resource "kubernetes_deployment" "example" {
   }
 }
 
-resource "kubernetes_service" "example" {
+resource "kubernetes_service" "example_svc" {
   metadata {
     name = "example-app"
   }
