@@ -39,5 +39,3 @@ Prerequisite: please make sure you are using Minikube.
 
 ## Related docs
 https://docs.gitlab.com/ee/ci/examples/
-
-Add Github actions for Terraform linting
