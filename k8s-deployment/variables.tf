@@ -6,6 +6,6 @@ variable "example_namespace" {
 
 variable "minikube_port" {
   description = "Port to access Minikube cluster"
-  type        = number
-  default     = 52692
+  type        = string
+  default     = "52692"
 }
