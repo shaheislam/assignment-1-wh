@@ -51,6 +51,18 @@ resource "kubernetes_deployment" "example" {
         container {
           image = "nginxinc/nginx-unprivileged:1.20" ## Unpriveleged container is a requirement to run the container as non-root
           name  = "nginx-app"
+          port {
+            container_port = "27017"
+          }
+          env {
+            name = "API_KEY"
+            value_from {
+              secret_key_ref {
+                name = "example-app-secret"
+                key  = "password"
+              }
+            }
+          }
           resources {
             limits {
               cpu    = "0.5"
@@ -69,7 +81,7 @@ resource "kubernetes_deployment" "example" {
 
 resource "kubernetes_service" "example_svc" {
   metadata {
-    name = "example-app"
+    name      = "example-app"
     namespace = var.example_namespace
   }
   spec {
@@ -79,7 +91,7 @@ resource "kubernetes_service" "example_svc" {
     session_affinity = "ClientIP"
     port {
       port        = 8080
-      target_port = 80
+      target_port = 27017
     }
 
     type = "NodePort"
@@ -96,9 +108,35 @@ resource "kubernetes_service_account" "example_app_sa" {
   }
 }
 
+#With access to AWS services can utilise AWS Secret ARN to store API_KEY and reference as a datalookup then create K8s secret at runtime, much more secure
+#Vault secret management is also an alternative which I have experience with however would not wish to share propietary code.
+
+# resource "kubernetes_secret" "example-app-secret" {
+#   metadata {
+#     name      = "example-app-secret"
+#     namespace = var.example_namespace
+#     labels = {
+#       "sensitive" = "true"
+#       "app"       = "nginx-app"
+#     }
+#   }
+#   data = {
+#     "file.txt" = file("${path.cwd}/json/api.json")
+#   }
+# }
+
 resource "kubernetes_secret" "example-app-secret" {
   metadata {
-    name = "example-app-secret"
+    name      = "example-app-secret"
+    namespace = var.example_namespace
+    labels = {
+      "sensitive" = "true"
+      "app"       = "nginx-app"
+    }
+  }
+  # 'data' will be automatically encoded into base64 before reaching the kubernetes API.
+  data = {
+    password = "P4ssw0rd"
   }
 }
 

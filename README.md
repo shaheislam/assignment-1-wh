@@ -50,3 +50,8 @@ Makefile with make targets running via docker compose
 stage in pipeline which utilises kube-bench
 helm chart installation for metric server? Test
 Terraform module
+
+https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/
+
+kubectl port-forward example-app-56b6b9d858-5lg8w 31698:27017
+https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/
