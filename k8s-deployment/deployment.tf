@@ -70,6 +70,7 @@ resource "kubernetes_deployment" "example" {
 resource "kubernetes_service" "example_svc" {
   metadata {
     name = "example-app"
+    namespace = var.example_namespace
   }
   spec {
     selector = {
@@ -87,7 +88,7 @@ resource "kubernetes_service" "example_svc" {
 
 resource "kubernetes_service_account" "example_app_sa" {
   metadata {
-    name = "example-app-sa"
+    name      = "example-app-sa"
     namespace = var.example_namespace
   }
   secret {

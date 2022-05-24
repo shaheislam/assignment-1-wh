@@ -49,3 +49,4 @@ IF logic for wether you want local terraform or S3
 Makefile with make targets running via docker compose
 stage in pipeline which utilises kube-bench
 helm chart installation for metric server? Test
+Terraform module
