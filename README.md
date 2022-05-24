@@ -39,3 +39,13 @@ Prerequisite: please make sure you are using Minikube.
 
 ## Related docs
 https://docs.gitlab.com/ee/ci/examples/
+
+
+MENTION
+Prereqs, Docker
+downloading https://hub.docker.com/r/nginxinc/nginx-unprivileged
+
+IF logic for wether you want local terraform or S3
+Makefile with make targets running via docker compose
+stage in pipeline which utilises kube-bench
+helm chart installation for metric server? Test
